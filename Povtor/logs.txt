@@ -1,0 +1,6 @@
+2025-04-10 INFO Service started
+2025-04-10 ERROR Database timeout
+2025-04-10 INFO Health check OK
+2025-04-11 ERROR Disk full
+2025-04-11 ERROR Connection timeout
+2025-04-11 INFO Service restarted

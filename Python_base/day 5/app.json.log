@@ -1,0 +1,5 @@
+{"timestamp":"2025-04-10 11:45:02","level":"ERROR","message":"Connection failed"}
+{"timestamp":"2025-04-10 11:46:15","level":"ERROR","message":"User logged in"}
+{"timestamp":"2025-05-10 11:47:30","level":"WARN","message":"Low disk space"}
+{"timestamp":"2025-06-10 11:48:45","level":"INFO","message":"File uploaded successfully"}
+{"timestamp":"2025-06-10 11:49:50","level":"ERROR","message":"Timeout while processing request"}

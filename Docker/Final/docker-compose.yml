@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16
+    container_name: pg-db
+    environment: 
+      POSTGRES_USER: user 
+      POSTGRES_PASSWORD: pass 
+      POSTGRES_DB: base 
+
+    volumes: 
+      - final:/var/lib/postgresql/data
+
+  app: 
+    build: ./app 
+    container_name: app
+    ports: 
+    - "5000:5000" 
+    depends_on: 
+    - db 
+volumes: 
+  final:
