@@ -1,11 +1,11 @@
 ---
 - name: Установка и настройка Nginx
   hosts: webservers
-  become: true # нужен sudo для установки пакетов
+  become: yes # нужен sudo для установки пакетов
 
   vars:
     http_port: 80
-    server_name: "my-nginx-server"
+    server_name: "Shat_test"
     my_name: "Simon" # поменяй на своё имя, появится на странице
 
   tasks:
@@ -36,7 +36,7 @@
 
     # просто смотрим статус - ничего не меняем
     - name: Проверить что nginx слушает порт {{ http_port }}
-      command: ss -tlnp | grep {{ http_port }}
+      shell: ss -tlnp | grep {{ http_port }}
       register: port_check
       changed_when: false # команда ничего не меняет
 
