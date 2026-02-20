@@ -8,11 +8,11 @@ ZABBIX_VERSION = "7.2"
 
 GROUPS = {
     "Cameras": {
-        "uuid": "5bfa16d5bfe74153af77665de5bcade7",
+        "uuid": "5HIDDEN_UID7",
         "template": "Generic by SNMP"
     },
     "Switches": {
-        "uuid": "70d63c3421e64bc8af24f8d26ff903d3",
+        "uuid": "7HIDDEN_UID3",
         "template": "PSW-2G4F"
     }
 }
