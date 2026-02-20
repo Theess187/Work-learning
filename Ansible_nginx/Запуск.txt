@@ -1,0 +1,8 @@
+# проверить доступность сервера
+ansible all -i hosts.ini -m ping
+
+# пробный прогон
+ansible-playbook -i hosts.ini playbook.yml --check
+
+# запустить
+ansible-playbook -i hosts.ini playbook.yml
