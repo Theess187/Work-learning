@@ -1,12 +1,12 @@
 ---
 - name: Установка и настройка Nginx
   hosts: webservers
-  become: yes # нужен sudo для установки пакетов
+  become: yes # выполняем задачи от имени root
 
   vars:
     http_port: 80
     server_name: "Shat_test"
-    my_name: "Simon" # поменяй на своё имя, появится на странице
+    my_name: "Simon"
 
   tasks:
     # обновляем кэш apt перед установкой
@@ -17,7 +17,7 @@
     - name: Установить nginx
       apt:
         name: nginx
-        state: present
+        state: present # оставить если установлен(absent — удалить, latest — обновить до последней версии)
 
     # копируем нашу html страницу на сервер
     - name: Задеплоить кастомную страницу
@@ -25,7 +25,7 @@
         src: templates/index.html.j2
         dest: /var/www/html/index.html
         mode: "0644"
-      notify: Restart Nginx # перезапускаем nginx если страница изменилась
+      notify: Restart Nginx #  если файл изменился - в конце play вызовет handler с именем "Restart Nginx"
 
     # убеждаемся что nginx запущен и стартует при перезагрузке
     - name: Запустить nginx
@@ -36,9 +36,9 @@
 
     # просто смотрим статус - ничего не меняем
     - name: Проверить что nginx слушает порт {{ http_port }}
-      shell: ss -tlnp | grep {{ http_port }}
-      register: port_check
-      changed_when: false # команда ничего не меняет
+      shell: ss -tlnp | grep {{ http_port }} #можно command вместо shell, но тогда нужно писать без пайпа
+      register: port_check #В переменной port_check будут поля stdout, stderr, returncode
+      changed_when: false # эта task никогда не считается изменившей что-то.
 
     - name: Вывести результат проверки порта
       debug:
