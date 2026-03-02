@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+
+  # prometheus собирает метрики и хранит их в базе данных
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"        # веб-интерфейс prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus   # хранение данных
+      - ./prometheus/alerts.yml:/etc/prometheus/alerts.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=7d'  # хранить данные 7 дней
+    restart: unless-stopped
+
+  # node exporter собирает метрики хоста
+  node_exporter:
+    image: prom/node-exporter:latest
+    container_name: node_exporter
+    ports:
+      - "9100:9100"        # порт для метрик node exporter
+    restart: unless-stopped
+
+  # grafana визуализирует метрики из prometheus
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"        # веб-интерфейс grafana
+    volumes:
+      - grafana_data:/var/lib/grafana  # хранение дашбордов
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+
+volumes:
+  prometheus_data:
+  grafana_data:
