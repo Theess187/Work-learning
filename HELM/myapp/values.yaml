@@ -1,0 +1,15 @@
+replicaCount: 3
+
+image:
+  name: nginx
+  tag: "latest"
+
+service:
+  type: NodePort
+  port: 80
+
+config:
+  APP_ENV: "development"
+  APP_PORT: "8080"
+
+namespace: helm-test

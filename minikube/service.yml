@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  selector:
+    app: myapp # находит поды с этим лейблом
+  ports:
+    - port: 80 # порт Service
+      targetPort: 80 # порт внутри пода
+  type: NodePort # открыть доступ снаружи кластера
